@@ -1,3 +1,4 @@
+import { CopyButton } from '@/components/commons/CopyButton';
 import Head from 'next/head';
 
 const Contatos = () => {
@@ -19,6 +20,7 @@ const Contatos = () => {
               >
                 huriel-lopes@outlook.com
               </a>
+              <CopyButton textToCopy="huriel-lopes@outlook.com" />
             </div>
           </li>
           <li>

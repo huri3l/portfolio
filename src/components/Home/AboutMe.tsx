@@ -57,6 +57,7 @@ export const AboutMe = () => {
           width={500}
           height={500}
           unoptimized
+          priority
           className="rounded-full"
         />
         <p className="p-4 w-fit text-base leading-tight bg-h-blue-500 rounded-xl text-black absolute -bottom-[12px] sm:bottom-3">
