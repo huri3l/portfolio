@@ -11,7 +11,7 @@ const Home = () => {
           content="Sou um desenvolvedor Front-end apaixonado por criar interfaces e ajudar outros devs!"
         />
       </Head>
-      <div>
+      <div className="py-12 px-6 md:px-32 space-y-10 md:space-y-28">
         <AboutMe />
       </div>
     </>
