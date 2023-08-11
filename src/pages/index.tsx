@@ -1,42 +1,18 @@
 import { AboutMe } from '@/components/Home/AboutMe';
 import { Projects } from '@/components/Home/Projects';
+import { Project, AboutMe as TAboutMe } from '@/types/Home';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 
-const Home = () => {
-  const projects = [
-    {
-      slug: 'natura-whitelabel',
-      name: 'Natura Whitelabel',
-      image: {
-        url: 'https://i.imgur.com/BSphXgc.png',
-        alt: 'Página Inicial do Site da Natura Brasil',
-      },
-    },
-    {
-      slug: 'blobg',
-      name: 'Blob.g',
-      image: {
-        url: 'https://i.imgur.com/Fdl3Lnp.png',
-        alt: 'Blob.g, notícias do mundo dos códigos',
-      },
-    },
-    {
-      slug: 'userdash',
-      name: 'UserDash',
-      image: {
-        url: 'https://i.imgur.com/bViAwow.png',
-        alt: 'UserDash, dashboard de usuários. Página inicial contendo uma opção para filtrar os usuários ou criar, além de um usuário de exemplo. O usuário de exemplo é Huriel Ferreira Lopes, e-mail: huriel.lopes@exampl.com, celular: 99 99999-9999, país: Brasil, estado: Rio Grande do Sul, enderaço: Rua dos Dados Falsos, 4',
-      },
-    },
-    {
-      slug: 'videoteca',
-      name: 'Videoteca',
-      image: {
-        url: 'https://i.imgur.com/wuTKxK9.png',
-        alt: 'Videoteca, aplicativo para salvar vídeos',
-      },
-    },
-  ];
+interface HomeProps {
+  home: {
+    aboutMe: TAboutMe;
+    projects: Project[];
+  };
+}
+
+const Home = ({ home }: HomeProps) => {
+  const { projects, aboutMe } = home;
 
   return (
     <>
@@ -48,11 +24,28 @@ const Home = () => {
         />
       </Head>
       <div className="py-12 px-6 md:px-32 space-y-10 md:space-y-28">
-        <AboutMe />
+        <AboutMe aboutMe={aboutMe} />
         <Projects projects={projects} />
       </div>
     </>
   );
+};
+
+const loadHome = async () => {
+  const res = await fetch(
+    'https://gist.githubusercontent.com/huri3l/b2d6a36f169dfe3fcd11a5dac89d83cc/raw/ad2cd1cd3c858ffd6fd70af5c80bb6bf98ee2cdf/home.json',
+  );
+  const home = await res.json();
+
+  return home;
+};
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const home = await loadHome();
+
+  return {
+    props: { home },
+  };
 };
 
 export default Home;
